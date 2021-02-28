@@ -5,9 +5,9 @@
 
 using namespace std;
 
-void test(){
+void test_sondage_lineaire(){
     Paire tab[10];
-    for(int i=0; i<10; tab[i].cle=EMPTY, i++); //initialization of tab clé = -1 is considered empty
+    for(int i=0; i<10; tab[i].e=NULL, i++); //initialization of tab clé = -1 is considered empty
     //define elements
     Element e1 = {1,2};
     ajouter(tab, 10, 0, &e1);
@@ -29,6 +29,6 @@ void test(){
 }
 
 int main() {
-    test();
+    test_sondage_lineaire();
     return 0;
 }
