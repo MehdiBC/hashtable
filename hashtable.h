@@ -1,3 +1,5 @@
+#define EMPTY -1 //-1 is considered as empty key this is just for initialization or as a returned error not found
+
 struct Element{
     int x;
     int y;
