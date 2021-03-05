@@ -1,3 +1,5 @@
+/* ########################## definition des structures de données ########################## */
+
 #define EMPTY -1 //-1 is considered as empty key this is just for initialization or as a returned error not found
 
 struct Element{
@@ -9,6 +11,12 @@ struct Paire{
     int cle;
     Element* e;
 };
+
+void afficher(Paire p){
+    if(p.e!=NULL)
+        printf("(%d, %d, %d)\n", p.cle, p.e->x, p.e->y);
+    else printf("(-, -, -)\n");
+}
 
 int hashFunction(int cle){
 //calculer la fonction de hashage
