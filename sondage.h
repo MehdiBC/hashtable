@@ -6,17 +6,17 @@
 #endif // test
 
 //recherche de case vide
-#define SONDAGE_QUADRATIQUE for(numberTest = 1, i=0; tab[indice].e!=NULL; numberTest++, i++){indice=(indice+i*i)%taille;}
-#define SONDAGE_LINEAIRE for(numberTest = 1; tab[indice].e!=NULL; indice=(++indice)%taille, numberTest++);
-#define SONDAGE_DOUBLE for(numberTest = 1, i=0; tab[indice].e!=NULL; indice=(indice+hashIndex(i))%taille, i++, numberTest++);
+#define SONDAGE_QUADRATIQUE for(numberTest = 1, i=0; tab[indice].e!=NULL; numberTest++, i++){indice=(calculIndice(cle, taille)+i+i*i)%taille;}
+#define SONDAGE_LINEAIRE for(numberTest = 1, i=0; tab[indice].e!=NULL; i++, indice=(calculIndice(cle, taille)+i)%taille, numberTest++);
+#define SONDAGE_DOUBLE for(numberTest = 1, i=0; tab[indice].e!=NULL; indice=(calculIndice(cle, taille)+hashIndex(i))%taille, i++, numberTest++);
 
 //recherche de la cle dans la table de hashage
-#define SONDAGE_QUADRATIQUE_RECHERCHE for(numberTest = 1, i=0; numberTest<=(*maxNumberTests) && tab[indice].e!=NULL && tab[indice].cle!=cle; numberTest++, i++){indice=(indice+i*i)%taille;}
+#define SONDAGE_QUADRATIQUE_RECHERCHE for(numberTest = 1, i=0; numberTest<=(*maxNumberTests) && tab[indice].e!=NULL && tab[indice].cle!=cle; numberTest++, i++){indice=(indice+i+i*i)%taille;}
 #define SONDAGE_LINEAIRE_RECHERCHE for(numberTest = 1; numberTest<=(*maxNumberTests) &&  tab[indice].e!=NULL && tab[indice].cle!=cle; indice=(++indice)%taille, numberTest++);
 #define SONDAGE_DOUBLE_RECHERCHE for(numberTest = 1, i=0; numberTest<=(*maxNumberTests) &&  tab[indice].e!=NULL && tab[indice].cle!=cle; indice=(indice+hashIndex(i))%taille, i++, numberTest++);
 
-#define SONDAGE SONDAGE_LINEAIRE // définir la methode d'implementation pour la recherche de case vide
-#define SONDAGE_RECHERCHE SONDAGE_LINEAIRE_RECHERCHE // définir la methode d'implementation pour la recherche de case vide
+#define SONDAGE SONDAGE_QUADRATIQUE // définir la methode d'implementation pour la recherche de case vide
+#define SONDAGE_RECHERCHE SONDAGE_QUADRATIQUE_RECHERCHE // définir la methode d'implementation pour la recherche de case vide
 
 int hashIndex(int cle){
 //calculer la fonction de hashage
@@ -29,7 +29,7 @@ void ajouter(Paire tab[], int taille, int cle, Element* valeur, int *nbrePaire, 
     if(*nbrePaire<=taille){
         //index = (h(key)+i²) mod sizeTab
         int indice = calculIndice(cle, taille);
-        int numberTest;
+        int numberTest, i;
         SONDAGE
         tab[indice].cle = cle;
         tab[indice].e = valeur;
@@ -78,7 +78,7 @@ void test_sondage(){
     //define elements
     int nbPaire=0, maxNbTest=0;
     Element e[10] = { {1,2}, {4,7}, {7,1}, {4,8}, {4,8}, {4,8}, {4,8}, {4,8}, {4,8}, {4,8} };
-    for(int i=0; i<10; i++){
+    for(int i=0; i<8; i++){
         ajouter(tab, 10, rand()%10, &(e[i]), &nbPaire, &maxNbTest);
     }
     afficher(tab, 10);
